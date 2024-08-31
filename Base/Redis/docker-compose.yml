@@ -1,0 +1,29 @@
+version: '3'
+services:
+  redis:
+    container_name: redis
+    image: redislabs/redismod
+    hostname: redis
+    restart: always
+    ports:
+      - 6379:6379
+      
+  # redisinsight:
+  #   container_name: redis-insight
+  #   hostname: redis-insight
+  #   image: redislabs/redisinsight:latest
+  #   # restart: always
+  #   ports:
+  #     - '8001:8001'
+  #   volumes:
+  #     - ./Users/ajeetraina/data/redisinsight:/db 
+      
+  redis-commander:
+    container_name: redis-commander
+    hostname: redis-commander
+    image: rediscommander/redis-commander:latest
+    restart: always
+    environment:
+    - REDIS_HOSTS=local:redis:6379
+    ports:
+    - "8081:8081"

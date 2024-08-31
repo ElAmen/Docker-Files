@@ -1,0 +1,25 @@
+version: '3.4'
+services:
+    php:
+        build:
+            context: .
+            target: php
+        volumes:
+            - .:/usr/src:rw,cached
+        depends_on:
+            - meilisearch
+
+    meilisearch:
+        image: getmeili/meilisearch
+        command: ./meilisearch --master-key=masterKey --no-analytics
+        ports:
+            -   target: 7700
+                published: 7700
+                protocol: tcp
+
+
+# docker run -d --name meilisearch -it --rm -p 7700:7700 -v ./meili_data:/meili_data getmeili/meilisearch:latest
+
+# Support
+# https://rustrepo.com/repo/meilisearch-MeiliSearch-rust-miscellaneous
+# https://docs.meilisearch.com/learn/getting_started/filtering_and_sorting.html#settings
